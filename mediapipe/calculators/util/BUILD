@@ -273,15 +273,7 @@ cc_library(
         "//mediapipe/framework/port:vector",
         "//mediapipe/util:annotation_renderer",
         "//mediapipe/util:render_data_cc_proto",
-    ] + select({
-        "//mediapipe/gpu:disable_gpu": [],
-        "//conditions:default": [
-            "//mediapipe/gpu:gl_calculator_helper",
-            "//mediapipe/gpu:gl_simple_shaders",
-            "//mediapipe/gpu:gpu_buffer",
-            "//mediapipe/gpu:shader_util",
-        ],
-    }),
+    ],
     alwayslink = 1,
 )
 

@@ -27,19 +27,19 @@ namespace tool {
 
 // Make a SequenceExample packet from a serialized SequenceExample.
 // The SequenceExample in the Packet is owned by the C++ packet.
-Packet CreateSequenceExamplePacketFromString(std::string* serialized_content) {
-  tensorflow::SequenceExample sequence_example;
-  sequence_example.ParseFromString(*serialized_content);
-  return MakePacket<tensorflow::SequenceExample>(sequence_example);
-}
+// Packet CreateSequenceExamplePacketFromString(std::string* serialized_content) {
+//   tensorflow::SequenceExample sequence_example;
+//   sequence_example.ParseFromString(*serialized_content);
+//   return MakePacket<tensorflow::SequenceExample>(sequence_example);
+// }
 
 // Get a serialized SequenceExample std::string from a Packet.
 // The ownership of the returned std::string will be transferred to the Python
 // object.
-std::unique_ptr<std::string> GetSerializedSequenceExample(Packet* packet) {
-  return absl::make_unique<std::string>(
-      packet->Get<tensorflow::SequenceExample>().SerializeAsString());
-}
+// std::unique_ptr<std::string> GetSerializedSequenceExample(Packet* packet) {
+//   return absl::make_unique<std::string>(
+//       packet->Get<tensorflow::SequenceExample>().SerializeAsString());
+// }
 
 // Make a String packet
 Packet CreateStringPacket(std::string* input_string) {

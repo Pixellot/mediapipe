@@ -33,23 +33,36 @@ http_archive(
 
 http_archive(
     name = "rules_cc",
-    strip_prefix = "rules_cc-master",
-    urls = ["https://github.com/bazelbuild/rules_cc/archive/master.zip"],
+    strip_prefix = "rules_cc-53f28aeac9a5bb70dc5f8dfbcd924f298f05da01",
+    urls = ["https://github.com/bazelbuild/rules_cc/archive/53f28aeac9a5bb70dc5f8dfbcd924f298f05da01.zip"],
 )
 
 # GoogleTest/GoogleMock framework. Used by most unit-tests.
 http_archive(
      name = "com_google_googletest",
-     urls = ["https://github.com/google/googletest/archive/master.zip"],
-     strip_prefix = "googletest-master",
+     urls = ["https://github.com/google/googletest/archive/refs/tags/release-1.11.0.zip"],
+     strip_prefix = "googletest-release-1.11.0",
 )
 
 # Google Benchmark library.
 http_archive(
     name = "com_google_benchmark",
-    urls = ["https://github.com/google/benchmark/archive/master.zip"],
-    strip_prefix = "benchmark-master",
-    build_file = "@//third_party:benchmark.BUILD",
+    urls = ["https://github.com/google/benchmark/archive/refs/tags/v1.5.5.zip"],
+    strip_prefix = "benchmark-v1.5.5",
+    build_file_content =
+"""
+cc_library(
+    name = "benchmark",
+    srcs = glob([
+        "src/*.h",
+        "src/*.cc",
+    ]),
+    hdrs = glob(["include/benchmark/*.h"]),
+    copts = ["-DHAVE_POSIX_REGEX"],  # HAVE_STD_REGEX didn't work.
+    includes = ["include"],
+    visibility = ["//visibility:public"],
+)
+"""
 )
 
 # gflags needed by glog

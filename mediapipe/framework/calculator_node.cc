@@ -46,7 +46,9 @@
 #include "mediapipe/framework/tool/status_util.h"
 #include "mediapipe/framework/tool/tag_map.h"
 #include "mediapipe/framework/tool/validate_name.h"
+#ifndef MEDIAPIPE_DISABLE_GPU
 #include "mediapipe/gpu/graph_support.h"
+#endif
 
 namespace mediapipe {
 
@@ -99,8 +101,12 @@ Timestamp CalculatorNode::SourceProcessOrder(
       validated_graph_->CalculatorInfos()[node_id_];
 
   uses_gpu_ =
+#ifndef MEDIAPIPE_DISABLE_GPU
       node_type_info.InputSidePacketTypes().HasTag(kGpuSharedTagName) ||
       ContainsKey(node_type_info.Contract().ServiceRequests(), kGpuService.key);
+#else
+    false;
+#endif
 
   // TODO Propagate types between calculators when SetAny is used.
 
