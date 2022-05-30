@@ -209,34 +209,6 @@ cc_library(
 )
 
 cc_library(
-    name = "tensor_to_detection",
-    srcs = ["tensor_to_detection.cc"],
-    hdrs = ["tensor_to_detection.h"],
-    features = [
-        # Layering check doesn't play nicely with portable proto wrappers.
-        "no_layering_check",
-    ],
-    visibility = [
-        "//visibility:public",
-    ],
-    deps = [
-        "//mediapipe/framework/formats:detection_cc_proto",
-        "//mediapipe/framework/formats:location",
-        "@com_google_absl//absl/strings:str_format",
-        "@com_google_absl//absl/types:variant",
-        "//mediapipe/framework/port:status",
-        "//mediapipe/framework/port:map_util",
-    ] + select({
-        "//conditions:default": [
-            "@org_tensorflow//tensorflow/core:framework",
-        ],
-        "//mediapipe:android": [
-            "@org_tensorflow//tensorflow/core:android_tensorflow_lib_lite",
-        ],
-    }),
-)
-
-cc_library(
     name = "time_series_util",
     srcs = ["time_series_util.cc"],
     hdrs = ["time_series_util.h"],

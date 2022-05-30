@@ -55,13 +55,6 @@ proto_library(
 )
 
 proto_library(
-    name = "split_vector_calculator_proto",
-    srcs = ["split_vector_calculator.proto"],
-    visibility = ["//visibility:public"],
-    deps = ["//mediapipe/framework:calculator_proto"],
-)
-
-proto_library(
     name = "quantize_float_vector_calculator_proto",
     srcs = ["quantize_float_vector_calculator.proto"],
     visibility = ["//visibility:public"],
@@ -124,14 +117,6 @@ mediapipe_cc_proto_library(
     cc_deps = ["//mediapipe/framework:calculator_cc_proto"],
     visibility = ["//visibility:public"],
     deps = [":packet_thinner_calculator_proto"],
-)
-
-mediapipe_cc_proto_library(
-    name = "split_vector_calculator_cc_proto",
-    srcs = ["split_vector_calculator.proto"],
-    cc_deps = ["//mediapipe/framework:calculator_cc_proto"],
-    visibility = ["//visibility:public"],
-    deps = [":split_vector_calculator_proto"],
 )
 
 mediapipe_cc_proto_library(
@@ -288,14 +273,7 @@ cc_library(
         "//mediapipe/framework/formats:landmark_cc_proto",
         "//mediapipe/framework/port:ret_check",
         "//mediapipe/framework/port:status",
-        "@org_tensorflow//tensorflow/lite:framework",
-    ] + select({
-        "//mediapipe/gpu:disable_gpu": [],
-        "//mediapipe:ios": [],
-        "//conditions:default": [
-            "@org_tensorflow//tensorflow/lite/delegates/gpu/gl:gl_buffer",
-        ],
-    }),
+    ],
     alwayslink = 1,
 )
 
@@ -337,7 +315,6 @@ cc_library(
         "//mediapipe/framework/formats:rect_cc_proto",
         "//mediapipe/framework/port:ret_check",
         "//mediapipe/framework/port:status",
-        "@org_tensorflow//tensorflow/lite:framework",
     ],
     alwayslink = 1,
 )
@@ -743,49 +720,6 @@ cc_test(
         "//mediapipe/framework/stream_handler:immediate_input_stream_handler",
         "//mediapipe/framework/tool:sink",
         "@com_google_absl//absl/time",
-    ],
-)
-
-cc_library(
-    name = "split_vector_calculator",
-    srcs = ["split_vector_calculator.cc"],
-    hdrs = ["split_vector_calculator.h"],
-    visibility = ["//visibility:public"],
-    deps = [
-        ":split_vector_calculator_cc_proto",
-        "//mediapipe/framework:calculator_framework",
-        "//mediapipe/framework/formats:landmark_cc_proto",
-        "//mediapipe/framework/formats:rect_cc_proto",
-        "//mediapipe/framework/port:ret_check",
-        "//mediapipe/framework/port:status",
-        "//mediapipe/util:resource_util",
-        "@org_tensorflow//tensorflow/lite:framework",
-        "@org_tensorflow//tensorflow/lite/kernels:builtin_ops",
-    ] + select({
-        "//mediapipe/gpu:disable_gpu": [],
-        "//mediapipe:ios": [],
-        "//conditions:default": [
-            "@org_tensorflow//tensorflow/lite/delegates/gpu/gl:gl_buffer",
-        ],
-    }),
-    alwayslink = 1,
-)
-
-cc_test(
-    name = "split_vector_calculator_test",
-    srcs = ["split_vector_calculator_test.cc"],
-    deps = [
-        ":split_vector_calculator",
-        ":split_vector_calculator_cc_proto",
-        "//mediapipe/framework:calculator_framework",
-        "//mediapipe/framework:calculator_runner",
-        "//mediapipe/framework/deps:file_path",
-        "//mediapipe/framework/port:gtest_main",
-        "//mediapipe/framework/port:integral_types",
-        "//mediapipe/framework/port:parse_text_proto",
-        "//mediapipe/framework/tool:validate_type",
-        "@org_tensorflow//tensorflow/lite:framework",
-        "@org_tensorflow//tensorflow/lite/kernels:builtin_ops",
     ],
 )
 

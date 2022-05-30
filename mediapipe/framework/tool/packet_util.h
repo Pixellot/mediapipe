@@ -16,7 +16,9 @@
 #define MEDIAPIPE_FRAMEWORK_TOOL_PACKET_UTIL_H_
 
 #include "mediapipe/framework/packet.h"
+#if !defined(MEDIAPIPE_DISABLE_TENSORFLOW)
 #include "tensorflow/core/example/example.pb.h"
+#endif
 
 namespace mediapipe {
 namespace tool {
@@ -28,9 +30,13 @@ namespace tool {
 // Make a SequenceExample packet from a serialized SequenceExample.
 // The SequenceExample in the Packet is owned by the C++ packet.
 Packet CreateSequenceExamplePacketFromString(std::string* serialized_content) {
+#if !defined(MEDIAPIPE_DISABLE_TENSORFLOW)
   tensorflow::SequenceExample sequence_example;
   sequence_example.ParseFromString(*serialized_content);
   return MakePacket<tensorflow::SequenceExample>(sequence_example);
+#else
+  return MakePacket<std::string>(*serialized_content);
+#endif
 }
 
 // Get a serialized SequenceExample std::string from a Packet.
@@ -38,7 +44,11 @@ Packet CreateSequenceExamplePacketFromString(std::string* serialized_content) {
 // object.
 std::unique_ptr<std::string> GetSerializedSequenceExample(Packet* packet) {
   return absl::make_unique<std::string>(
+#if !defined(MEDIAPIPE_DISABLE_TENSORFLOW)
       packet->Get<tensorflow::SequenceExample>().SerializeAsString());
+#else
+      packet->Get<std::string>());
+#endif
 }
 
 // Make a String packet

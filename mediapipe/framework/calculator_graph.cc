@@ -60,11 +60,13 @@
 #include "mediapipe/framework/tool/validate.h"
 #include "mediapipe/framework/tool/validate_name.h"
 #include "mediapipe/framework/validated_graph_config.h"
+#ifndef MEDIAPIPE_DISABLE_GPU
 #include "mediapipe/gpu/graph_support.h"
+#endif
 #include "mediapipe/util/cpu_util.h"
 #ifndef MEDIAPIPE_DISABLE_GPU
 #include "mediapipe/gpu/gpu_shared_data_internal.h"
-#endif  // !defined(MEDIAPIPE_DISABLE_GPU)
+#endif
 
 namespace mediapipe {
 

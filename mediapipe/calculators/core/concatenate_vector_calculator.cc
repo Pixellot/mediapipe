@@ -17,9 +17,9 @@
 #include <vector>
 
 #include "mediapipe/framework/formats/landmark.pb.h"
-#include "tensorflow/lite/interpreter.h"
 
 #if !defined(MEDIAPIPE_DISABLE_GL_COMPUTE)
+#include "tensorflow/lite/interpreter.h"
 #include "tensorflow/lite/delegates/gpu/gl/gl_buffer.h"
 #endif  //  !MEDIAPIPE_DISABLE_GPU
 

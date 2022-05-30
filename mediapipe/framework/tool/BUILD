@@ -177,7 +177,6 @@ cc_library(
     deps = [
         "//mediapipe/framework:packet",
         "//mediapipe/framework/port:statusor",
-        "@org_tensorflow//tensorflow/core:protos_all",
     ],
 )
 

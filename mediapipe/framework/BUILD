@@ -423,12 +423,7 @@ cc_library(
         "calculator_graph.h",
         "scheduler.h",
     ],
-    defines = select({
-        "//conditions:default": [],
-        "//mediapipe/gpu:disable_gpu": [
-            "MEDIAPIPE_DISABLE_GPU",
-        ],
-    }),
+    defines = ["MEDIAPIPE_DISABLE_GPU"],
     visibility = [
         ":mediapipe_internal",
     ],
@@ -465,7 +460,6 @@ cc_library(
         "//mediapipe/framework:thread_pool_executor_cc_proto",
         "@com_google_absl//absl/container:flat_hash_map",
         "@com_google_absl//absl/container:flat_hash_set",
-        "//mediapipe/gpu:graph_support",
         "@com_google_absl//absl/base:core_headers",
         "@com_google_absl//absl/container:fixed_array",
         "@com_google_absl//absl/memory",
@@ -487,13 +481,7 @@ cc_library(
         "//mediapipe/framework/port:source_location",
         "//mediapipe/framework/port:status",
         "//mediapipe/util:cpu_util",
-    ] + select({
-        "//conditions:default": [
-            "//mediapipe/gpu:gpu_shared_data_internal",
-            "//mediapipe/gpu:gpu_service",
-        ],
-        "//mediapipe/gpu:disable_gpu": [],
-    }),
+    ],
 )
 
 cc_library(
@@ -540,7 +528,6 @@ cc_library(
         "//mediapipe/framework/tool:status_util",
         "//mediapipe/framework/tool:tag_map",
         "//mediapipe/framework/tool:validate_name",
-        "//mediapipe/gpu:graph_support",
         "@com_google_absl//absl/base:core_headers",
         "@com_google_absl//absl/memory",
         "@com_google_absl//absl/strings",
