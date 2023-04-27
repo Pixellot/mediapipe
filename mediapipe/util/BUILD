@@ -173,17 +173,11 @@ cc_library(
     srcs = select({
         "//conditions:default": ["resource_util.cc"],
         "//mediapipe:android": ["resource_util_android.cc"],
-        "//mediapipe:apple": ["resource_util_apple.cc"],
-        "//mediapipe:macos": ["resource_util.cc"],
     }),
     hdrs = ["resource_util.h"],
     # We use Objective-C++ on iOS.
     copts = select({
         "//conditions:default": [],
-        "//mediapipe:apple": [
-            "-ObjC++",
-        ],
-        "//mediapipe:macos": [],
     }),
     visibility = [
         "//mediapipe/framework:mediapipe_internal",
@@ -200,10 +194,6 @@ cc_library(
         "//mediapipe:android": [
             "//mediapipe/util/android:asset_manager_util",
             "//mediapipe/util/android/file/base",
-        ],
-        "//mediapipe:apple": [],
-        "//mediapipe:macos": [
-            "//mediapipe/framework/port:file_helpers",
         ],
     }),
 )

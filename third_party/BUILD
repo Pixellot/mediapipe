@@ -38,12 +38,6 @@ cc_library(
         "//mediapipe:android_arm64": [
             "@android_opencv//:libopencv_arm64-v8a",
         ],
-        "//mediapipe:ios": [
-            "@ios_opencv//:opencv",
-        ],
-        "//mediapipe:macos": [
-            "@macos_opencv//:opencv",
-        ],
         "//conditions:default": [
             "@linux_opencv//:opencv",
         ],
@@ -59,10 +53,6 @@ cc_library(
         "//mediapipe:android_armeabi": [],
         "//mediapipe:android_arm": [],
         "//mediapipe:android_arm64": [],
-        "//mediapipe:ios": [],
-        "//mediapipe:macos": [
-            "@macos_ffmpeg//:libffmpeg",
-        ],
         "//conditions:default": [
             "@linux_ffmpeg//:libffmpeg",
         ],

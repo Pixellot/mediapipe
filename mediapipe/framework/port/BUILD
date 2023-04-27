@@ -374,7 +374,6 @@ cc_library(
     deps = select({
         "//conditions:default": [":threadpool_impl_default_to_google"],
         "//mediapipe:android": [":threadpool_impl_default_to_mediapipe"],
-        "//mediapipe:apple": [":threadpool_impl_default_to_mediapipe"],
     }),
 )
 

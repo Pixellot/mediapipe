@@ -70,13 +70,6 @@ mediapipe_cc_proto_library(
     deps = [":detection_proto"],
 )
 
-java_lite_proto_library(
-    name = "detection_java_proto_lite",
-    strict_deps = 0,
-    visibility = ["//mediapipe:__subpackages__"],
-    deps = [":detection_proto"],
-)
-
 mediapipe_cc_proto_library(
     name = "classification_cc_proto",
     srcs = ["classification.proto"],
@@ -207,7 +200,6 @@ cc_library(
         "//conditions:default": [
         ],
         "//mediapipe:android": [],
-        "//mediapipe:apple": [],
     }),
     alwayslink = 1,
 )
@@ -262,15 +254,6 @@ mediapipe_cc_proto_library(
     deps = [":rect_proto"],
 )
 
-java_lite_proto_library(
-    name = "rect_java_proto_lite",
-    strict_deps = 0,
-    visibility = [
-        "//mediapipe:__subpackages__",
-    ],
-    deps = [":landmark_proto"],
-)
-
 proto_library(
     name = "landmark_proto",
     srcs = ["landmark.proto"],
@@ -286,14 +269,6 @@ mediapipe_cc_proto_library(
     deps = [":landmark_proto"],
 )
 
-java_lite_proto_library(
-    name = "landmark_java_proto_lite",
-    strict_deps = 0,
-    visibility = [
-        "//mediapipe:__subpackages__",
-    ],
-    deps = [":landmark_proto"],
-)
 
 # Expose the proto source files for building mediapipe AAR.
 filegroup(

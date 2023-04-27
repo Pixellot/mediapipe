@@ -33,30 +33,6 @@ config_setting(
 )
 
 config_setting(
-    name = "ios_armv7",
-    values = {
-        "cpu": "ios_armv7",
-    },
-    visibility = ["//visibility:private"],
-)
-
-config_setting(
-    name = "ios_arm64",
-    values = {
-        "cpu": "ios_arm64",
-    },
-    visibility = ["//visibility:private"],
-)
-
-config_setting(
-    name = "ios_arm64e",
-    values = {
-        "cpu": "ios_arm64e",
-    },
-    visibility = ["//visibility:private"],
-)
-
-config_setting(
     name = "libunwind",
     values = {
         "define": "libunwind=true",

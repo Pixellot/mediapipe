@@ -294,16 +294,9 @@ cc_library(
     name = "image_transformation_calculator",
     srcs = ["image_transformation_calculator.cc"],
     copts = select({
-        "//mediapipe:apple": [
-            "-x objective-c++",
-        ],
         "//conditions:default": [],
     }),
     linkopts = select({
-        "//mediapipe:apple": [
-            "-framework CoreVideo",
-            "-framework MetalKit",
-        ],
         "//conditions:default": [],
     }),
     visibility = ["//visibility:public"],
@@ -334,16 +327,9 @@ cc_library(
     srcs = ["image_cropping_calculator.cc"],
     hdrs = ["image_cropping_calculator.h"],
     copts = select({
-        "//mediapipe:apple": [
-            "-x objective-c++",
-        ],
         "//conditions:default": [],
     }),
     linkopts = select({
-        "//mediapipe:apple": [
-            "-framework CoreVideo",
-            "-framework MetalKit",
-        ],
         "//conditions:default": [],
     }),
     visibility = [
