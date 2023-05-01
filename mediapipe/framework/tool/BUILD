@@ -61,12 +61,6 @@ java_proto_library(
     deps = [":calculator_graph_template_proto"],
 )
 
-java_lite_proto_library(
-    name = "calculator_graph_template_java_proto_lite",
-    strict_deps = 0,
-    visibility = ["//visibility:public"],
-    deps = [":calculator_graph_template_proto"],
-)
 
 proto_library(
     name = "source_proto",

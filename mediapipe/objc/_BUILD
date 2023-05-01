@@ -6,7 +6,6 @@ cc_library(
     name = "CFHolder",
     # Header is excluded on non-ios so you can still build :all.
     hdrs = select({
-        "//mediapipe:apple": ["CFHolder.h"],
         "//conditions:default": [],
     }),
     visibility = ["//mediapipe/framework:mediapipe_internal"],

@@ -292,12 +292,6 @@ cc_library(
         "//mediapipe:android": [
             "//mediapipe/util/android/file/base",
         ],
-        "//mediapipe:apple": [
-            "//mediapipe/util/android/file/base",
-        ],
-        "//mediapipe:macos": [
-            "//mediapipe/framework/port:file_helpers",
-        ],
         "//conditions:default": [
             "//mediapipe/framework/port:file_helpers",
         ],
@@ -867,12 +861,6 @@ cc_library(
     ] + select({
         "//mediapipe:android": [
             "//mediapipe/util/android/file/base",
-        ],
-        "//mediapipe:apple": [
-            "//mediapipe/util/android/file/base",
-        ],
-        "//mediapipe:macos": [
-            "//mediapipe/framework/port:file_helpers",
         ],
         "//conditions:default": [
             "//mediapipe/framework/port:file_helpers",

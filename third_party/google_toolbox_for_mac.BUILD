@@ -381,15 +381,12 @@ objc_library(
 objc_library(
     name = "GTM_UILocalizer",
     hdrs = select({
-        "//mediapipe:macos": ["AppKit/GTMUILocalizer.h"],
         "//conditions:default": ["iPhone/GTMUILocalizer.h"],
     }),
     non_arc_srcs = select({
-        "//mediapipe:macos": ["AppKit/GTMUILocalizer.m"],
         "//conditions:default": ["iPhone/GTMUILocalizer.m"],
     }),
     sdk_frameworks = select({
-        "//mediapipe:macos": ["AppKit"],
         "//conditions:default": [],
     }),
     visibility = ["//visibility:public"],
@@ -399,7 +396,6 @@ objc_library(
     # On MacOS, mark alwayslink in case this is referenced only from a XIB and
     # would otherwise be stripped.
     alwayslink = select({
-        "//mediapipe:ios": 0,
         "//conditions:default": 1,
     }),
 )

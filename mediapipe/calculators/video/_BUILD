@@ -412,7 +412,6 @@ cc_test(
     size = "small",
     srcs = ["tracking_graph_test.cc"],
     copts = ["-DPARALLEL_INVOKER_ACTIVE"] + select({
-        "//mediapipe:apple": [],
         "//mediapipe:android": [],
         "//conditions:default": [],
     }),

@@ -59,14 +59,6 @@ GL_BASE_LINK_OPTS = select({
         # runtime. Weak GLESv3 symbols will still be resolved if we
         # load it early enough.
     ],
-    "//mediapipe:apple": [
-        "-framework OpenGLES",
-        "-framework CoreVideo",
-    ],
-    "//mediapipe:macos": [
-        "-framework OpenGL",
-        "-framework CoreVideo",
-    ],
 })
 
 # This is @unused internally.
@@ -87,9 +79,6 @@ GL_BASE_LINK_OPTS_OSS = GL_BASE_LINK_OPTS + select({
 cc_library(
     name = "gl_base",
     defines = select({
-        "//mediapipe:apple": [
-            "GLES_SILENCE_DEPRECATION=1",
-        ],
         "//conditions:default": [],
     }),
     features = ["-layering_check"],
@@ -98,7 +87,6 @@ cc_library(
     visibility = ["//visibility:public"],
     deps = [":gl_base_hdr"] + select({
         "//mediapipe:android": [],
-        "//mediapipe:apple": [],
         "//conditions:default": [
         ],
     }),
@@ -111,19 +99,10 @@ cc_library(
     # Note: need the frameworks on Apple platforms to get the headers.
     linkopts = select({
         "//conditions:default": [],
-        "//mediapipe:apple": [
-            "-framework OpenGLES",
-            "-framework CoreVideo",
-        ],
-        "//mediapipe:macos": [
-            "-framework OpenGL",
-            "-framework CoreVideo",
-        ],
     }),
     visibility = ["//visibility:public"],
     deps = select({
         "//mediapipe:android": [],
-        "//mediapipe:apple": [],
         "//conditions:default": [
         ],
     }),
@@ -147,20 +126,10 @@ cc_library(
         "//conditions:default": [
             "gl_context_egl.cc",
         ],
-        "//mediapipe:apple": [
-            "gl_context_eagl.cc",
-        ],
-        "//mediapipe:macos": [
-            "gl_context_nsgl.cc",
-        ],
     }),
     hdrs = ["gl_context.h"],
     copts = select({
         "//conditions:default": [],
-        "//mediapipe:apple": [
-            "-x objective-c++",
-            "-fobjc-arc",
-        ],
     }),
     visibility = ["//visibility:public"],
     deps = [
@@ -180,9 +149,6 @@ cc_library(
         "//mediapipe/framework:timestamp",
     ] + select({
         "//conditions:default": [],
-        "//mediapipe:apple": [
-            "//mediapipe/objc:CFHolder",
-        ],
     }),
 )
 
@@ -212,13 +178,6 @@ cc_library(
         ":gpu_buffer_format",
     ] + select({
         "//conditions:default": [
-            ":gl_texture_buffer",
-        ],
-        "//mediapipe:apple": [
-            "//mediapipe/objc:CFHolder",
-        ],
-        "//mediapipe:macos": [
-            "//mediapipe/objc:CFHolder",
             ":gl_texture_buffer",
         ],
     }),
@@ -268,10 +227,6 @@ objc_library(
     ] + select({
         "//conditions:default": [
             "OpenGLES",
-        ],
-        "//mediapipe:macos": [
-            "OpenGL",
-            "AppKit",
         ],
     }),
     visibility = ["//visibility:public"],
@@ -331,9 +286,6 @@ cc_library(
         "gpu_shared_data_internal.h",
     ] + select({
         "//conditions:default": [],
-        "//mediapipe:apple": [
-            "MPPGraphGPUData.h",
-        ],
     }),
     visibility = ["//visibility:private"],
     deps = [
@@ -376,7 +328,6 @@ cc_library(
             "gpu_shared_data_internal.cc",
         ],
         # iOS uses an Objective-C++ version of this, built in MPPGraphGPUData.
-        "//mediapipe:apple": [],
     }),
     hdrs = [
         "gpu_shared_data_internal.h",
@@ -396,9 +347,6 @@ cc_library(
         ":gpu_shared_data_header",
     ] + select({
         "//conditions:default": [],
-        "//mediapipe:apple": [
-            ":MPPGraphGPUData",
-        ],
     }),
 )
 
@@ -408,22 +356,9 @@ cc_library(
         "//conditions:default": [
             "gl_texture_buffer_pool.cc",
         ],
-        "//mediapipe:apple": [],
-        "//mediapipe:macos": [
-            "gl_texture_buffer_pool.cc",
-        ],
     }),
     hdrs = ["gpu_buffer_multi_pool.h"] + select({
         "//conditions:default": [
-            "gl_texture_buffer_pool.h",
-        ],
-        "//mediapipe:apple": [
-            # The inclusions check does not see that this is provided by
-            # pixel_buffer_pool_util, so we include it here too. This is
-            # b/28066691.
-            "pixel_buffer_pool_util.h",
-        ],
-        "//mediapipe:macos": [
             "gl_texture_buffer_pool.h",
         ],
     }),
@@ -439,14 +374,6 @@ cc_library(
         "@com_google_absl//absl/synchronization",
     ] + select({
         "//conditions:default": [
-            ":gl_texture_buffer",
-        ],
-        "//mediapipe:apple": [
-            ":pixel_buffer_pool_util",
-            "//mediapipe/objc:CFHolder",
-        ],
-        "//mediapipe:macos": [
-            ":pixel_buffer_pool_util",
             ":gl_texture_buffer",
         ],
     }),
@@ -497,21 +424,15 @@ HELPER_IOS_FRAMEWORKS = [
     "//conditions:default": [
         "OpenGLES",
     ],
-    "//mediapipe:macos": [
-        "OpenGL",
-        "AppKit",
-    ],
 })
 
 cc_library(
     name = "gl_calculator_helper",
     srcs = select({
         "//conditions:default": HELPER_COMMON_SRCS + HELPER_ANDROID_SRCS,
-        "//mediapipe:apple": [],
     }),
     hdrs = HELPER_COMMON_HDRS + select({
         "//conditions:default": HELPER_ANDROID_HDRS,
-        "//mediapipe:apple": [],
     }),
     visibility = ["//visibility:public"],
     deps = [
@@ -545,10 +466,6 @@ cc_library(
         "//mediapipe/framework/port:map_util",
     ] + select({
         "//conditions:default": [
-        ],
-        "//mediapipe:apple": [
-            ":gl_calculator_helper_ios",
-            "//mediapipe/objc:util",
         ],
     }),
 )
@@ -663,7 +580,6 @@ cc_library(
         "//mediapipe/framework/port:status",
     ] + select({
         "//conditions:default": [],
-        "//mediapipe:apple": ["//mediapipe/objc:util"],
     }),
     alwayslink = 1,
 )

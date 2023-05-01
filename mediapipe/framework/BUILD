@@ -276,18 +276,6 @@ mediapipe_py_proto_library(
     visibility = ["//mediapipe:__subpackages__"],
 )
 
-java_lite_proto_library(
-    name = "calculator_java_proto_lite",
-    strict_deps = 0,
-    visibility = [":mediapipe_internal"],
-    deps = [":calculator_proto"],
-)
-
-java_lite_proto_library(
-    name = "calculator_profile_java_proto_lite",
-    visibility = [":mediapipe_internal"],
-    deps = [":calculator_profile_proto"],
-)
 
 cc_library(
     name = "calculator_base",
@@ -1081,9 +1069,6 @@ cc_library(
     ],
     copts = select({
         "//conditions:default": [],
-        "//mediapipe:apple": [
-            "-ObjC++",
-        ],
     }),
     visibility = [":mediapipe_internal"],
     deps = [

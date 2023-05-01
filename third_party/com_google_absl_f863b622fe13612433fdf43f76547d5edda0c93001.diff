@@ -5,10 +5,3 @@ index 9fceffe..e7f9d01 100644
 @@ -69,8 +69,5 @@ cc_library(
          "include/cctz/zone_info_source.h",
      ],
-     linkopts = select({
--        ":osx": [
--            "-framework Foundation",
--        ],
-         ":ios": [
-             "-framework Foundation",
-         ],
